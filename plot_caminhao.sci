@@ -20,6 +20,6 @@ x4 = x3 - cc * cosd(phi);
 y4 = y3 - cc * sind(phi);
 
 plot( [x3, x4, x1, x2], [y3, y4, y1, y2] );
-plot( [x2, x3], [y2, y3], "*:" );
+plot( [x2, x3], [y2, y3], "*" );
 
 endfunction

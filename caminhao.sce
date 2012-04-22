@@ -104,9 +104,11 @@ fis = importfis(get_absolute_file_path("caminhao.sce") + "/caminhao.fis");
 
 
 //Laço principal do programa
-while ( eval_err(x, xmeta) > erro | ..
-        eval_err(y, ymeta) > erro | ..
-        eval_err(phi, phimeta) > erro )
+while ( (eval_err(x, xmeta) > erro | ..
+         eval_err(y, ymeta) > erro | ..
+         eval_err(phi, phimeta) > erro) & ..
+         (y < yf & y > yi) & ..
+         (x < xf & x > xi) )
 
     //Chama o sistema de inferência fuzzy, e calcula o novo giro do volante.
     //O nome da função que chama o sistema de inferência do MATLAB é quase o
@@ -122,6 +124,8 @@ while ( eval_err(x, xmeta) > erro | ..
 
     passos = passos + 1;
 end
+
+
 
 //Impressao do estado final do caminhão e das variáveis de interesse
 printf("X final (e erro)  : %.2f (%.2f) \n", x, eval_err(x, xmeta));
