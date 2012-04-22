@@ -131,5 +131,5 @@ end
 printf("X final (e erro)  : %.2f (%.2f) \n", x,   eval_err(x, xmeta));
 printf("Y final (e erro)  : %.2f (%.2f) \n", y,   eval_err(y, ymeta));
 printf("PHI final (e erro): %.2f (%.2f) \n", phi, eval_err(phi, phimeta));
-printf("Numero de passos = %d\n", passos);
+printf("Numero de passos  : %d\n", passos);
 
