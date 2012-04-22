@@ -95,11 +95,11 @@ teti = -30;
 tetf = 30;
 tet_step = 1;
 
-// 
+//
 //Agora que foram definidos todos os conjuntos, tanto os de 
 //entrada como os de saida, iremos fazer os calculos do que
 //deve acontecer na saida baseado nas entradas.
-// 
+//
 //Estabelecendo uma posicao inicial do caminhao
 // 
 //posicao=48;
@@ -148,9 +148,10 @@ while ( ((abs(posicao-xmeta)/xmeta) > erro) | ((abs(y-ymeta)/ymeta)>erro) | ((ab
   // fprintf(''Posicao atual x = %.2f\n'', posicao);
   // fprintf(''Posicao atual y = %.2f\n'', y);
   angulo = angulo + output;
-  angulo_rad = angulo * %pi / 180;
-  posicao = posicao + delta * cos(angulo_rad);
-  y = y + delta * sin(angulo_rad);
+  posicao = posicao + delta * cosd(angulo); //Não converterei de graus → rads.
+                                            //cosd(x) recebe graus.
+  y = y + delta * sind(angulo); //Não converterei de graus → rads. sind(x)
+                                //recebe graus.
 
   //    fprintf(''Saida do fis   = %.2f\n'', output);
   //    fprintf(''Novo Angulo    = %.2f\n'', angulo);
