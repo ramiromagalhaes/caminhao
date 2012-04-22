@@ -23,20 +23,20 @@ exec(get_absolute_file_path("caminhao.sce") + '/plot_caminhao.sci', -1);
 //Universo de discurso da dimensão Y
 //Esta variavel nao entra no sistema nebuloso, porque e assumido que
 //o patio de manobra tem espaco suficiente para recuos.
-yi = 0;
+yi =   0;
 yf = 100;
 
 //Universo de discurso da dimensão X
-xi = 0;
+xi =   0;
 xf = 100;
 
 //Universo de discurso do ângulo do caminhão (phi)
 phii = -105;
-phif = 285;
+phif =  285;
 
 //Universo de discurso do ângulo do volante do caminhão (teta)
 tetai = -30;
-tetaf = 30;
+tetaf =  30;
 
 
 
@@ -73,8 +73,8 @@ passos = 0;
 //=============================================================================
 //Definição da posição inicial do caminhão
 //=============================================================================
-x = ask_position(xi, xf, "X");
-y = ask_position(yi, yf, "Y");
+x   = ask_position(xi, xf, "X");
+y   = ask_position(yi, yf, "Y");
 phi = ask_position(phii, phif, "φ");
 
 
@@ -128,8 +128,8 @@ end
 
 
 //Impressao do estado final do caminhão e das variáveis de interesse
-printf("X final (e erro)  : %.2f (%.2f) \n", x, eval_err(x, xmeta));
-printf("Y final (e erro)  : %.2f (%.2f) \n", y, eval_err(y, ymeta));
+printf("X final (e erro)  : %.2f (%.2f) \n", x,   eval_err(x, xmeta));
+printf("Y final (e erro)  : %.2f (%.2f) \n", y,   eval_err(y, ymeta));
 printf("PHI final (e erro): %.2f (%.2f) \n", phi, eval_err(phi, phimeta));
 printf("Numero de passos = %d\n", passos);
 
