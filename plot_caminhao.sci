@@ -1,4 +1,4 @@
-function [] = plot_caminhao(x, y, phi, lc, cc)
+function plot_caminhao(x, y, phi, lc, cc)
 //Desenha caminhao na tela.
 //	x = posicao do caminhao na garagem
 //	y = posicao do caminhao na garagem
