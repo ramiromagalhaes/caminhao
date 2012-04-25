@@ -69,26 +69,11 @@ delta = 1;
 passos = 0;
 
 
-
 //=============================================================================
-//Definição da posição inicial do caminhão
+//Preparação do gerador de números aleatórios
 //=============================================================================
-x   = ask_position(xi, xf, "X");
-y   = ask_position(yi, yf, "Y");
-phi = ask_position(phii, phif, "φ");
-
-
-
-//Feitas todas as definições iniciais, podemos começar a realmente tratar do
-//problema.
-
-
-
-//Renderização inicial do estacionamento
-clf;
-plot([xi, xf, xf, xi, xi], [yi, yi, yf, yf, yi]);
-set(gca(), "auto_clear", "off"); //equivale, em MATLAB a: hold on;
-plot_caminhao(x, y, phi, larg_cam, comp_cam);
+rand("seed", getdate('s'));
+rand("uniform");
 
 
 
@@ -103,33 +88,26 @@ fis = importfis(get_absolute_file_path("caminhao.sce") + "/caminhao.fis");
 
 
 
-//Laço principal do programa
-while ( (eval_err(x, xmeta) > erro | ..
-         eval_err(y, ymeta) > erro | ..
-         eval_err(phi, phimeta) > erro) & ..
-         (y < yf & y > yi) & ..
-         (x < xf & x > xi) )
+//Feitas todas as definições iniciais, podemos começar a realmente tratar do
+//problema.
 
-    //Chama o sistema de inferência fuzzy, e calcula o novo giro do volante.
-    //O nome da função que chama o sistema de inferência do MATLAB é quase o
-    //mesmo: evalfis
-    output = evalfls( [x, phi], fis);
 
-    //Com o resultado do sistema de inferência, alteramos o estado do caminhão.
-    phi = phi + output;
-    x = x + delta * cosd(phi); //cosd(x) recebe graus.
-    y = y + delta * sind(phi); //sind(x) recebe graus.
+output_file_name = get_absolute_file_path("caminhao.sce") + ..
+                   "output-" + string(getdate('s')) + ".log"
+fd = mopen(output_file_name, 'wt');
 
-    plot_caminhao(x, y, phi, larg_cam, comp_cam);
-
-    passos = passos + 1;
+//quantidade de experimentos que faremos
+max_iteracoes = 100000;
+iteracoes = 0;
+while(iteracoes < max_iteracoes)
+    x   = rnd_position(xi, xf);
+    y   = rnd_position(yi, yf);
+    phi = rnd_position(phii, phif);
+    resultado = estaciona(x, y, phi, delta, [xi, xf, yi, yf], fis);
+    mfprintf(fd, "%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n", x, y, phi, delta, ..
+        resultado(1), resultado(2), resultado(3), resultado(4));
+    iteracoes = iteracoes + 1;
 end
 
-
-
-//Impressao do estado final do caminhão e das variáveis de interesse
-printf("X final (e erro)  : %.2f (%.2f) \n", x,   eval_err(x, xmeta));
-printf("Y final (e erro)  : %.2f (%.2f) \n", y,   eval_err(y, ymeta));
-printf("PHI final (e erro): %.2f (%.2f) \n", phi, eval_err(phi, phimeta));
-printf("Numero de passos  : %d\n", passos);
+mclose(fd);
 
