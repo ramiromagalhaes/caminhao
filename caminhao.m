@@ -3,34 +3,31 @@
 %       to Machine Intelligence cap 9
 %       Bart Kosko
 %       Ed. Prentice Hall
-%
-%
 %==========================================================================
-%
-%
-clc;
-%
-%=============================================================================
-%Universos de discurso
-%=============================================================================
 
-%Universo de discurso da dimensão Y
+clc;
+
+%==========================================================================
+%Universos de discurso
+%==========================================================================
+
+%Universo de discurso da dimensï¿½o Y
 %Esta variavel nao entra no sistema nebuloso, porque e assumido que
 %o patio de manobra tem espaco suficiente para recuos.
 yi = 0;
 yf = 100;
 
-%Universo de discurso da dimensão X
+%Universo de discurso da dimensï¿½o X
 xi = 0;
 xf = 100;
 
-%Universo de discurso do ângulo do caminhão (phi)
+%Universo de discurso do ï¿½ngulo do caminhï¿½o (phi)
 % o limite foi definido como [-105, 285] para cobrir eventuais valores fora
-% do limite mas os ângulos variam de [-90,270]
+% do limite mas os ï¿½ngulos variam de [-90,270]
 phii = -90;
 phif = 270;
 
-%Universo de discurso do ângulo do volante do caminhão (teta)
+%Universo de discurso do ï¿½ngulo do volante do caminhï¿½o (teta)
 tetai = -30;
 tetaf = 30;
 
@@ -38,26 +35,26 @@ tetaf = 30;
 %Constantes importantes
 %=============================================================================
 
-%Sobre o caminhão
+%Sobre o caminhï¿½o
 comp_cam = 18; %comprimento do caminhao
 larg_cam = 8;  %largura do caminhao
 
 %Sobre a garagem
-xmeta = 50; %posição X de estacionamento ideal
-ymeta = 100; %posição Y de estacionamento ideal
-phimeta = 90; %ângulo de estacionamento ideal
+xmeta = 50; %posiï¿½ï¿½o X de estacionamento ideal
+ymeta = 100; %posiï¿½ï¿½o Y de estacionamento ideal
+phimeta = 90; %ï¿½ngulo de estacionamento ideal
 
-%Erro máximo admissivel nas metas
+%Erro mï¿½ximo admissivel nas metas
 erro = 0.05;
 
-%Quantidade de passos que o caminhao anda por iteração. Equivale à velocidade.
+%Quantidade de passos que o caminhao anda por iteraï¿½ï¿½o. Equivale ï¿½ velocidade.
 delta = 1;
 
 %=============================================================================
-%Variáveis de interesse
+%Variï¿½veis de interesse
 %=============================================================================
 
-%Passos executados até chegar na garagem
+%Passos executados atï¿½ chegar na garagem
 passos = 0;
 
 
@@ -67,16 +64,17 @@ passos = 0;
 
 fis = readfis('caminhao');
 
-%Feitas todas as definições iniciais, podemos começar a realmente tratar do
+%Feitas todas as definiï¿½ï¿½es iniciais, podemos comeï¿½ar a realmente tratar do
 %problema.
 
-%inicializando arquivo de saída
-fd = fopen('resultado.csv','w');
+%inicializando arquivo de saï¿½da
+file_name = get_output_file_name();
+fd = fopen(file_name,'w');
 fprintf(fd,'%6s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n','x','y','phi',...
- 'delta','xf','yf','phif','passos','Erro estacionamento','Erro distância');
+ 'delta','xf','yf','phif','passos','Erro estacionamento','Erro distï¿½ncia');
 
 %quantidade de experimentos que faremos
-max_iteracoes = 100000;
+max_iteracoes = 10000;
 iteracoes = 0;
 while(iteracoes < max_iteracoes)
     x = rnd_position(xi, xf);
