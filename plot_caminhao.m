@@ -1,20 +1,12 @@
 function plot_caminhao(x,y,phi, lc ,cc);
 % Desenha caminhao na tela
-% 	plot_caminhao(x,y, phi)
-%
-%	Desenha caminhao na tela.
-%	x = posicao do caminhao na garagem
+%  x = posicao do caminhao na garagem
 %  y = posicao do caminhao na garagem
 %  phi = angulo do caminhao
 %  Adriano Cruz
 %  UFRJ
 %  Copyright 1999
 
-% comprimento do caminhao
-%cc=20;
-% largura do caminhao
-%lc=10;
-%
 phirad=(phi*pi)/180;
 x2=x+0.5*lc*sin(phirad);
 y2=y-0.5*lc*cos(phirad);
