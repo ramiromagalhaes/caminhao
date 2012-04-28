@@ -73,8 +73,7 @@ fis = readfis('caminhao');
 
 %momento de inicio da simulacao
 tempo_inicial = clock();
-disp(['Iniciando simulação em ', datestr(tempo_inicial)]);
-
+fprintf('\nIniciando simulação em %s \n', datestr(tempo_inicial));
 
 %iniciando arquivo de saida
 fd = fopen(get_output_file_name(tempo_inicial),'w');
@@ -103,5 +102,5 @@ close(progress_bar);
 
 tempo_final = clock();
 duracao = tempo_final - tempo_inicial;
-fprintf('\nSimulação concluida em %s. \nDuração: %2.0f:%2.0f\n', datestr(tempo_final), duracao(4), duracao(5));
+fprintf('\nSimulação concluida em %s.', datestr(tempo_final));
 
