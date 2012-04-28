@@ -82,8 +82,8 @@ fprintf('Semente do gerador de números aleatórios %d.\n', rand_settings.Seed);
 
 %iniciando arquivo de saida
 fd = fopen(get_output_file_name(tempo_inicial, rand_settings.Seed),'w');
-fprintf(fd,'%6s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n','x','y','phi',...
- 'delta','xf','yf','phif','passos','Erro estacionamento','Erro distancia');
+fprintf(fd,'%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\n',...
+           'x','y','phi','delta','xf','yf','phif','passos', 'Erro estacionamento','Erro distancia');
 
 %iniciando contador de progresso
 progress_bar = waitbar(0, 'Simulando...');
@@ -96,7 +96,7 @@ for iteracao = 1:max_iteracoes
     resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, [xi, xf, yi, yf], fis);
 
     %escreve resultados no arquivo
-    fprintf(fd,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\n',...
+    fprintf(fd,'%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\n',...
     x, y, phi, delta,resultado(1), resultado(2), resultado(3), resultado(4),resultado(5),resultado(6));    
 
 	%atualiza contador de progresso.
