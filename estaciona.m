@@ -1,7 +1,8 @@
 function resultado = estaciona(x, y, phi, delta,xmeta, ymeta, phimeta, erro, estacionamento, fis)
-    %param_caminhao: vetor [x, y, z], onde x � a pos. x, y � a pos. y e z � seu �ngulo
-    %delta: "velocidade" do caminh�o
-    %estacionamento: vetor [xi, xf, yi, yf], com as posi��es do estacionamento
+    %Executa o algoritmo de estacionar o caminhao.
+    %param_caminhao: vetor [x, y, z], onde x e a pos. x, y e a pos. y e z e seu angulo
+    %delta: "velocidade" do caminhao
+    %estacionamento: vetor [xi, xf, yi, yf], com as posicoes do estacionamento
     xi = estacionamento(1);
     xf = estacionamento(2);
     yi = estacionamento(3);
@@ -20,10 +21,10 @@ function resultado = estaciona(x, y, phi, delta,xmeta, ymeta, phimeta, erro, est
             (x < xf & x > xi) & ...
             (y < yf & y > yi) )
 
-        %Chama o sistema de infer�ncia fuzzy, e calcula o novo giro do volante.
+        %Chama o sistema de inferencia fuzzy, e calcula o novo giro do volante.
         output = evalfis([x phi], fis);
 
-        %Com o resultado do sistema de infer�ncia, alteramos o caminh�o.
+        %Com o resultado do sistema de inferencia, alteramos o caminhao.
         phi = phi + output;
         x = x + delta * cosd(phi); %cosd(x) recebe graus.
         y = y + delta * sind(phi); %sind(x) recebe graus.
@@ -35,9 +36,15 @@ function resultado = estaciona(x, y, phi, delta,xmeta, ymeta, phimeta, erro, est
     %erro estacionamento
     EE=sqrt((phi-phi0)^2+(x-x0)^2+(y-y0)^2);
 
-    %erro da trajet�ria distancia percorrida/distancia(posi��o
-    %inicial,posi��o final)
+    %erro da trajetoria distancia percorrida/distancia euclidiana
     ET=(passos*delta)/sqrt((x-x0)^2+(y-y0)^2);
 
     resultado = [x, y, phi, passos, EE, ET];
 end
+
+function err = eval_err(val, expected)
+%Avalia qual o erro percentual entre val e expected.
+%O parâmetro val e o valor atual e expected e seu valor esperado.
+    err = abs((val - expected)/expected);
+end
+

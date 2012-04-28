@@ -11,23 +11,23 @@ clc;
 %Universos de discurso
 %==========================================================================
 
-%Universo de discurso da dimens�o Y
+%Universo de discurso da dimensao Y
 %Esta variavel nao entra no sistema nebuloso, porque e assumido que
 %o patio de manobra tem espaco suficiente para recuos.
 yi = 0;
 yf = 100;
 
-%Universo de discurso da dimens�o X
+%Universo de discurso da dimensao X
 xi = 0;
 xf = 100;
 
-%Universo de discurso do �ngulo do caminh�o (phi)
+%Universo de discurso do angulo do caminhao (phi)
 % o limite foi definido como [-105, 285] para cobrir eventuais valores fora
-% do limite mas os �ngulos variam de [-90,270]
+% do limite mas os angulos variam de [-90,270]
 phii = -90;
 phif = 270;
 
-%Universo de discurso do �ngulo do volante do caminh�o (teta)
+%Universo de discurso do angulo do volante do caminhao (teta)
 tetai = -30;
 tetaf = 30;
 
@@ -35,26 +35,26 @@ tetaf = 30;
 %Constantes importantes
 %=============================================================================
 
-%Sobre o caminh�o
+%Sobre o caminhao
 comp_cam = 18; %comprimento do caminhao
-larg_cam = 8;  %largura do caminhao
+larg_cam =  8;  %largura do caminhao
 
 %Sobre a garagem
-xmeta = 50; %posi��o X de estacionamento ideal
-ymeta = 100; %posi��o Y de estacionamento ideal
-phimeta = 90; %�ngulo de estacionamento ideal
+xmeta   =  50; %posiçao X de estacionamento ideal
+ymeta   = 100; %posicao Y de estacionamento ideal
+phimeta =  90; %angulo de estacionamento ideal
 
-%Erro m�ximo admissivel nas metas
+%Erro maximo admissivel nas metas
 erro = 0.05;
 
-%Quantidade de passos que o caminhao anda por itera��o. Equivale � velocidade.
+%Quantidade de passos que o caminhao anda por iteracao. Equivale a velocidade.
 delta = 1;
 
 %=============================================================================
-%Vari�veis de interesse
+%Variaveis de interesse
 %=============================================================================
 
-%Passos executados at� chegar na garagem
+%Passos executados ate chegar na garagem
 passos = 0;
 
 
@@ -64,14 +64,14 @@ passos = 0;
 
 fis = readfis('caminhao');
 
-%Feitas todas as defini��es iniciais, podemos come�ar a realmente tratar do
+%Feitas todas as definicoes iniciais, podemos comecar a realmente tratar do
 %problema.
 
-%inicializando arquivo de sa�da
+%inicializando arquivo de saida
 file_name = get_output_file_name();
 fd = fopen(file_name,'w');
 fprintf(fd,'%6s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n','x','y','phi',...
- 'delta','xf','yf','phif','passos','Erro estacionamento','Erro dist�ncia');
+ 'delta','xf','yf','phif','passos','Erro estacionamento','Erro distancia');
 
 %quantidade de experimentos que faremos
 max_iteracoes = 10000;
