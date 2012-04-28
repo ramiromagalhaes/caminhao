@@ -73,10 +73,15 @@ fis = readfis('caminhao');
 
 %momento de inicio da simulacao
 tempo_inicial = clock();
-fprintf('\nIniciando simulação em %s \n', datestr(tempo_inicial));
+fprintf('Iniciando simulação em %s \n', datestr(tempo_inicial));
+
+%preparando o gerador de números aleatórios
+rng('shuffle');
+rand_settings = rng();
+fprintf('Semente do gerador de números aleatórios %d.\n', rand_settings.Seed);
 
 %iniciando arquivo de saida
-fd = fopen(get_output_file_name(tempo_inicial),'w');
+fd = fopen(get_output_file_name(tempo_inicial, rand_settings.Seed),'w');
 fprintf(fd,'%6s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n','x','y','phi',...
  'delta','xf','yf','phif','passos','Erro estacionamento','Erro distancia');
 
@@ -90,7 +95,7 @@ for iteracao = 1:max_iteracoes
     phi = rnd_position(phii, phif);
     resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, [xi, xf, yi, yf], fis);
 
-    %escreve resultados no arquivo    
+    %escreve resultados no arquivo
     fprintf(fd,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\n',...
     x, y, phi, delta,resultado(1), resultado(2), resultado(3), resultado(4),resultado(5),resultado(6));    
 

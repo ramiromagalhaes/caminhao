@@ -25,7 +25,7 @@ function resultado = estaciona(x, y, phi, delta,xmeta, ymeta, phimeta, erro, est
         %Chama o sistema de inferencia fuzzy, e calcula o novo giro do volante.
         output = evalfis([x phi], fis);
 
-        %Com o resultado do sistema de inferencia, alteramos o caminhao.
+        %Com o resultado do sistema de inferencia, movemos o caminhao.
         phi = phi + output;
         x = x + delta * cosd(phi); %cosd(x) recebe graus.
         y = y + delta * sind(phi); %sind(x) recebe graus.
@@ -33,12 +33,12 @@ function resultado = estaciona(x, y, phi, delta,xmeta, ymeta, phimeta, erro, est
         passos = passos + 1;
     end
 
-    %calcula erros da iteracao 
+    %calcula erros da iteracao
     %erro estacionamento
-    EE=sqrt((phi-phi0)^2+(x-x0)^2+(y-y0)^2);
+    EE = sqrt((phi - phi0)^2 + (x - x0)^2 + (y - y0)^2);
 
     %erro da trajetoria distancia percorrida/distancia euclidiana
-    ET=(passos*delta)/sqrt((x-x0)^2+(y-y0)^2);
+    ET = (passos * delta) / sqrt((x - x0)^2 + (y - y0)^2);
 
     resultado = [x, y, phi, passos, EE, ET];
 end
@@ -46,6 +46,6 @@ end
 function err = eval_err(val, expected)
 %Avalia qual o erro percentual entre val e expected.
 %O parâmetro val e o valor atual e expected e seu valor esperado.
-    err = abs((val - expected)/expected);
+    err = abs((val - expected) / expected);
 end
 
