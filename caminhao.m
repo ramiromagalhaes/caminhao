@@ -68,8 +68,7 @@ fis = readfis('caminhao');
 %problema.
 
 %inicializando arquivo de saida
-file_name = get_output_file_name();
-fd = fopen(file_name,'w');
+fd = fopen(get_output_file_name(),'w');
 fprintf(fd,'%6s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n','x','y','phi',...
  'delta','xf','yf','phif','passos','Erro estacionamento','Erro distancia');
 
