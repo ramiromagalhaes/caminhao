@@ -18,7 +18,7 @@ yi = 0;
 yf = 100;
 
 %Universo de discurso da dimensao X
-xi = 0;
+xi =   0;
 xf = 100;
 
 %Universo de discurso do angulo do caminhao (phi)
@@ -29,7 +29,7 @@ phif = 270;
 
 %Universo de discurso do angulo do volante do caminhao (teta)
 tetai = -30;
-tetaf = 30;
+tetaf =  30;
 
 %=============================================================================
 %Constantes importantes
@@ -83,6 +83,7 @@ fprintf(fd,'%6s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n','x','y','phi',...
 %iniciando contador de progresso
 progress_bar = waitbar(0, 'Simulando...');
 
+%laco principal
 for iteracao = 1:max_iteracoes
     x = rnd_position(xi, xf);
     y = rnd_position(yi, yf);
@@ -102,5 +103,5 @@ close(progress_bar);
 
 tempo_final = clock();
 duracao = tempo_final - tempo_inicial;
-fprintf('\nSimulação concluida em %s.', datestr(tempo_final));
+fprintf('Simulação concluida em %s.\n', datestr(tempo_final));
 
