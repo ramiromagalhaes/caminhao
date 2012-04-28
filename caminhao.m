@@ -99,6 +99,7 @@ for iteracao = 1:max_iteracoes
 end
 
 fclose(fd);
+close(progress_bar);
 
 tempo_final = clock();
 duracao = tempo_final - tempo_inicial;
