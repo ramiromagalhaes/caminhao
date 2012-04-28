@@ -1,6 +1,5 @@
-function name = get_output_file_name()
+function name = get_output_file_name(the_time)
 %Função utilitária que cria um nome variável para as saídas produzidas.
-    the_time = clock();
     username = getenv('USERNAME');
     name = ['outputs/resultado-' username '-' ...
                 num2str(the_time(1)) '-' num2str(the_time(2)) '-' ...

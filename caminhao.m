@@ -5,7 +5,7 @@
 %       Ed. Prentice Hall
 %==========================================================================
 
-clc;
+clc; %sim, nós gostamos de telas limpas...
 
 %==========================================================================
 %Universos de discurso
@@ -51,31 +51,40 @@ erro = 0.05;
 delta = 1;
 
 %=============================================================================
-%Variaveis de interesse
+%Variaveis de interesse.
 %=============================================================================
 
 %Passos executados ate chegar na garagem
 passos = 0;
 
+%quantidade de experimentos que faremos
+max_iteracoes = 10000;
+
 
 %=============================================================================
-%Lendo a descricao do sistema de inferencia fuzzy do caminhao
+%Lendo a descricao do sistema de inferencia fuzzy do caminhao.
 %=============================================================================
 
 fis = readfis('caminhao');
 
-%Feitas todas as definicoes iniciais, podemos comecar a realmente tratar do
-%problema.
+%=============================================================================
+%Feitas todas as definicoes iniciais, vamos ao que interessa.
+%=============================================================================
 
-%inicializando arquivo de saida
-fd = fopen(get_output_file_name(),'w');
+%momento de inicio da simulacao
+tempo_inicial = clock();
+disp(['Iniciando simulação em ', datestr(tempo_inicial)]);
+
+
+%iniciando arquivo de saida
+fd = fopen(get_output_file_name(tempo_inicial),'w');
 fprintf(fd,'%6s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n','x','y','phi',...
  'delta','xf','yf','phif','passos','Erro estacionamento','Erro distancia');
 
-%quantidade de experimentos que faremos
-max_iteracoes = 10000;
-iteracoes = 0;
-while(iteracoes < max_iteracoes)
+%iniciando contador de progresso
+progress_bar = waitbar(0, 'Simulando...');
+
+for iteracao = 1:max_iteracoes
     x = rnd_position(xi, xf);
     y = rnd_position(yi, yf);
     phi = rnd_position(phii, phif);
@@ -84,9 +93,14 @@ while(iteracoes < max_iteracoes)
     %escreve resultados no arquivo    
     fprintf(fd,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\n',...
     x, y, phi, delta,resultado(1), resultado(2), resultado(3), resultado(4),resultado(5),resultado(6));    
-        
-    iteracoes = iteracoes + 1;
+
+	%atualiza contador de progresso.
+    waitbar(iteracao/max_iteracoes, progress_bar);
 end
 
 fclose(fd);
+
+tempo_final = clock();
+duracao = tempo_final - tempo_inicial;
+fprintf('\nSimulação concluida em %s. \nDuração: %2.0f:%2.0f\n', datestr(tempo_final), duracao(4), duracao(5));
 
