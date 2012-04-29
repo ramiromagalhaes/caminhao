@@ -58,7 +58,7 @@ delta = 5;
 passos = 0;
 
 %quantidade de experimentos que faremos
-max_iteracoes = 1000;
+max_iteracoes = 10000;
 
 
 %=============================================================================
