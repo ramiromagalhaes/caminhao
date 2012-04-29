@@ -32,14 +32,6 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     while true
         passos = passos + 1;
 
-        %Chama o sistema de inferencia fuzzy, e calcula o novo giro do volante.
-        output = evalfis([x phi], fis);
-
-        %Com o resultado do sistema de inferencia, movemos o caminhao.
-        phi = phi + output;
-        x = x + delta * cosd(phi); %cosd(x) recebe graus.
-        y = y + delta * sind(phi); %sind(x) recebe graus.
-
         %Se o caminhao conseguiu estacionar, pare e informe sucesso.
         if ((eval_err(x, xmeta) < erro | ...
              eval_err(y, ymeta) < erro | ...
@@ -53,6 +45,14 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
             sucesso = false;
             break;
         end
+
+        %Chama o sistema de inferencia fuzzy, e calcula o novo giro do volante.
+        output = evalfis([x phi], fis);
+
+        %Com o resultado do sistema de inferencia, movemos o caminhao.
+        phi = phi + output;
+        x = x + delta * cosd(phi); %cosd(x) recebe graus.
+        y = y + delta * sind(phi); %sind(x) recebe graus.
     end
 
     %Calculo dos erros
@@ -60,11 +60,11 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     err_y   = eval_err(y, ymeta);
     err_phi = eval_err(phi, phimeta);
 
-    %erro estacionamento
+    %Erro de estacionamento
     EE = sqrt((phi - phimeta)^2 + (x - xmeta)^2 + (y - ymeta)^2);
 
-    %erro da trajetoria distancia percorrida/distancia euclidiana
-    ET = (passos * delta) / sqrt((x - x_inicial)^2 + (y - y_inicial)^2);
+    %Erro da trajetoria: (distancia percorrida) / (distancia euclidiana)
+    ET = (passos * delta) / sqrt((x_inicial - xmeta)^2 + (y_inicial - ymeta)^2);
 
     resultado = [x, y, phi, sucesso, passos, err_x, err_y, err_phi, EE, ET];
 end
