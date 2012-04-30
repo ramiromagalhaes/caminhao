@@ -91,7 +91,7 @@ progress_bar = waitbar(0, 'Simulando...');
 %laco principal
 for iteracao = 1:max_iteracoes
     x = rnd_position(xi, xf);
-    y = rnd_position(yi, yf);
+    y = rnd_position((yf-yi)/2, yf); %não colocaremos o caminhão perto demais da parede
     phi = rnd_position(phii, phif);
     resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, [xi, xf, yi, yf], fis);
 

@@ -27,10 +27,9 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
 
     passos = 0;      %quantidade de iteracoes passadas para chegar no resultado
 
-    %enquanto o erro é alto demais E enquanto o caminhao pode manobrar no estacionamento
-    while ( (eval_err(x, xmeta) > erro | ...
-             eval_err(y, ymeta) > erro | ...
-             eval_err(phi, phimeta) > erro) & ...
+    %enquanto o erro é alto demais E o caminhao pode manobrar no estacionamento
+    while ( (~(eval_err(x, xmeta) < erro & ...
+             eval_err(y, ymeta) < erro)) & ...
              xi < x & x < xf   &   yi < y & y < yf )
 
         %Chama o sistema de inferencia fuzzy, e calcula o novo giro do volante.
@@ -50,9 +49,9 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     err_y   = eval_err(y, ymeta);
     err_phi = eval_err(phi, phimeta);
 
-	%Consegui estacionar?
-    sucesso = err_x < erro | ...
-              err_y < erro | ...
+    %Consegui estacionar?
+    sucesso = err_x < erro & ...
+              err_y < erro & ...
               err_phi < erro;
 
     %Erro de estacionamento
@@ -66,8 +65,8 @@ end
 
 
 function err = eval_err(val, expected)
-%Avalia qual o erro percentual entre val e expected.
-%O parâmetro val e o valor atual; expected e o valor esperado.
+   %Avalia qual o erro percentual entre val e expected.
+   %O parâmetro val e o valor atual; expected e o valor esperado.
     err = abs((val - expected) / expected);
 end
 
