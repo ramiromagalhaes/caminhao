@@ -81,7 +81,6 @@ fprintf('Iniciando simulação em %s \n', datestr(tempo_inicial));
 %preparando o gerador de números aleatórios
 rng('shuffle');
 rand_settings = rng();
-rand_settings.Seed = 204095469;
 fprintf('Semente do gerador de números aleatórios %d.\n', rand_settings.Seed);
 
 %iniciando arquivo de saida
