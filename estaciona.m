@@ -64,9 +64,22 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
 end
 
 
+
 function err = eval_err(val, expected)
    %Avalia qual o erro percentual entre val e expected.
    %O parâmetro val e o valor atual; expected e o valor esperado.
     err = abs((val - expected) / expected);
 end
 
+function newphi = set_phi(p)
+%Calcula o valor de phi considerando seus limites máximo e mínimo.
+%Segundo a definição do problema, phi é um ângulo entre -90 e 270. Esta
+%função se certifica de que seu valor permanecerá dentro desses limites.
+    newphi = p;
+    if (p > 270.0)
+        newphi = p - 360.0;
+    end
+    if (p < -90.0)
+        newphi = p + 360.0;
+    end
+end
