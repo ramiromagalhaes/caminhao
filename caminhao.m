@@ -86,7 +86,7 @@ fprintf('Semente do gerador de números aleatórios %d.\n', rand_settings.Seed);
 %iniciando arquivo de saida
 file_name = get_output_file_name(tempo_inicial, rand_settings.Seed);
 fd = fopen(file_name,'w');
-fprintf(fd,'%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\n',...
+fprintf(fd,'%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n',...
            'xi','yi','phii','delta','xf','yf','phif','sucesso','passos','err_x','err_y','err_phi','EE','ET');
 
 %iniciando contador de progresso

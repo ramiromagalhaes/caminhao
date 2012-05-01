@@ -83,3 +83,34 @@ function newphi = set_phi(p)
         newphi = p + 360.0;
     end
 end
+
+function val = distancia_canto_proximo(x, y, estacionamento)
+%Calcula a distancia do caminhão até o canto mais próximo do
+%estacionamento.
+    x_pow = 0;
+    if (x > (estacionamento(2) - estacionamento(1))/2)
+        x_pow = estacionamento(2) - x;
+    else
+        x_pow = x - estacionamento(1);
+    end
+    x_pow = x_pow^2;
+
+    y_pow = 0;
+    if (y > (estacionamento(4) - estacionamento(3))/2)
+        y_pow = estacionamento(4) - y;
+    else
+        y_pow = y - estacionamento(3);
+    end
+    y_pow = y_pow^2;
+
+    val = sqrt(x_pow + y_pow);
+end
+
+function atg = angulo_meta(x, y, phi, xmeta, ymeta)
+%Retorna o ângulo em graus da inclinação da reta que passa por (x,y) e
+%(xmeta,ymeta).
+    atg = atand((ymeta - y) / (xmeta - x));
+    if (atg < 0)
+        atg = atg + 180;
+    end
+end
