@@ -31,9 +31,9 @@ phif = 270;
 tetai = -30;
 tetaf =  30;
 
-%=============================================================================
+%==========================================================================
 %Constantes importantes
-%=============================================================================
+%==========================================================================
 
 %Sobre o caminhao
 comp_cam = 18; %comprimento do caminhao
@@ -47,12 +47,12 @@ phimeta =  90; %angulo de estacionamento ideal
 %Erro maximo admissivel nas metas
 erro = 0.05;
 
-%Quantidade de passos que o caminhao anda por iteracao. Equivale a velocidade.
+%Quantidade de passos que o caminhao anda por iteracao. E a velocidade.
 delta = 5;
 
-%=============================================================================
+%==========================================================================
 %Variaveis de interesse.
-%=============================================================================
+%==========================================================================
 
 %Passos executados ate chegar na garagem
 passos = 0;
@@ -60,16 +60,19 @@ passos = 0;
 %quantidade de experimentos que faremos
 max_iteracoes = 10000;
 
+%distancia contada a partir das paredes do estacionamento nas quais o
+%caminhao pode ser colocado aleatoriamente.
+padding = ceil(delta*(cos(30) + cos(6)));
 
-%=============================================================================
+%==========================================================================
 %Lendo a descricao do sistema de inferencia fuzzy do caminhao.
-%=============================================================================
+%==========================================================================
 
 fis = readfis('caminhao');
 
-%=============================================================================
+%==========================================================================
 %Feitas todas as definicoes iniciais, vamos ao que interessa.
-%=============================================================================
+%==========================================================================
 
 %momento de inicio da simulacao
 tempo_inicial = clock();
@@ -78,10 +81,12 @@ fprintf('Iniciando simulação em %s \n', datestr(tempo_inicial));
 %preparando o gerador de números aleatórios
 rng('shuffle');
 rand_settings = rng();
+rand_settings.Seed = 204095469;
 fprintf('Semente do gerador de números aleatórios %d.\n', rand_settings.Seed);
 
 %iniciando arquivo de saida
-fd = fopen(get_output_file_name(tempo_inicial, rand_settings.Seed),'w');
+file_name = get_output_file_name(tempo_inicial, rand_settings.Seed);
+fd = fopen(file_name,'w');
 fprintf(fd,'%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\t%6s\n',...
            'xi','yi','phii','delta','xf','yf','phif','sucesso','passos','err_x','err_y','err_phi','EE','ET');
 
@@ -90,8 +95,8 @@ progress_bar = waitbar(0, 'Simulando...');
 
 %laco principal
 for iteracao = 1:max_iteracoes
-    x = rnd_position(xi, xf);
-    y = rnd_position((yf-yi)/2, yf); %não colocaremos o caminhão perto demais da parede
+    x = rnd_position(xi + padding, xf - padding); %não colocaremos o caminhão colado na parede
+    y = rnd_position(yi + padding, yf - padding); %não colocaremos o caminhão colado na parede
     phi = rnd_position(phii, phif);
     resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, [xi, xf, yi, yf], fis);
 
@@ -111,3 +116,6 @@ tempo_final = clock();
 duracao = tempo_final - tempo_inicial;
 fprintf('Simulação concluida em %s.\n', datestr(tempo_final));
 
+%Linux only. Para facilitar a leitura do arquivo pelo BROffice. Isso
+%substitui pontos por vírgulas no arquivo de saída.
+system(['sed -i ''s/\./\,/g'' ' file_name]);
