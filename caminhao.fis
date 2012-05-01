@@ -12,38 +12,38 @@ AggMethod='max'
 DefuzzMethod='centroid'
 
 [Input1]
-Name='Posicao_c'
+Name='Posicao c'
 Range=[0 100]
 NumMFs=5
-MF1='LE':'trapmf',[0 0 10 35]
-MF2='LC':'trimf',[30 40 50]
-MF3='CE':'trimf',[45 50 55]
-MF4='RC':'trimf',[50 60 70]
-MF5='RI':'trapmf',[65 90 100 100]
+MF1='esquerda':'trapmf',[0 0 10 35]
+MF2='centro-esquerda':'trimf',[30 40 50]
+MF3='centro':'trimf',[45 50 55]
+MF4='centro-direita':'trimf',[50 60 70]
+MF5='direita':'trapmf',[65 90 100 100]
 
 [Input2]
-Name='Angulo_c'
+Name='Angulo c'
 Range=[-105 285]
 NumMFs=7
-MF1='RB':'trimf',[-105 -45 15]
-MF2='RU':'trimf',[-15 30 60]
-MF3='RV':'trimf',[45 67 90]
-MF4='VE':'trimf',[75 90 105]
-MF5='LV':'trimf',[90 112 135]
-MF6='LU':'trimf',[120 150 195]
-MF7='LB':'trimf',[165 225 285]
+MF1='11-horas':'trimf',[-105 -45 15]
+MF2='9-horas':'trimf',[-15 30 60]
+MF3='8-horas':'trimf',[45 67 90]
+MF4='6-horas':'trimf',[75 90 105]
+MF5='4-horas':'trimf',[90 112 135]
+MF6='3-horas':'trimf',[120 150 195]
+MF7='1-hora':'trimf',[165 225 285]
 
 [Output1]
-Name='Angulo_v'
+Name='Angulo v'
 Range=[-30 30]
 NumMFs=7
-MF1='NB':'trimf',[-30 -30 -15]
-MF2='NM':'trimf',[-25 -15 -5]
-MF3='NS':'trimf',[-10 -5 0]
-MF4='ZE':'trimf',[-5 0 5]
-MF5='PS':'trimf',[0 5 10]
-MF6='PM':'trimf',[5 15 25]
-MF7='PB':'trimf',[15 30 30]
+MF1='muito-esquerda':'trimf',[-30 -30 -15]
+MF2='esquerda':'trimf',[-25 -15 -5]
+MF3='centro-esquerda':'trimf',[-10 -5 0]
+MF4='centro':'trimf',[-5 0 5]
+MF5='centro-direita':'trimf',[0 5 10]
+MF6='direita':'trimf',[5 15 25]
+MF7='muito-direita':'trimf',[15 30 30]
 
 [Rules]
 1 1, 5 (1) : 1
