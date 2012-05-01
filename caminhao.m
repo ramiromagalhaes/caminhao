@@ -62,7 +62,7 @@ max_iteracoes = 10000;
 
 %distancia contada a partir das paredes do estacionamento nas quais o
 %caminhao pode ser colocado aleatoriamente.
-padding = ceil(delta*(cos(30) + cos(60)));
+padding = ceil(delta*(cosd(30) + cosd(60)));
 
 %==========================================================================
 %Lendo a descricao do sistema de inferencia fuzzy do caminhao.
