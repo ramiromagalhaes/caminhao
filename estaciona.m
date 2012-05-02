@@ -1,10 +1,11 @@
-function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, estacionamento, fis)
+function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, estacionamento, fis, should_plot, larg_cam, comp_cam)
     %Executa o algoritmo de estacionar o caminhao.
     %----ENTRADAS
     %    param_caminhao: vetor [x, y, z], onde x e a pos. x, y e a pos. y e z e seu angulo em graus
     %    delta: "velocidade" do caminhao
     %    estacionamento: vetor [xi, xf, yi, yf], com as posicoes do estacionamento
     %    fis: o descritor do sistema nebuloso
+    %    should_plot: Se true, plota o estacionamento.
     %----SAÍDA: Vetor onde suas posicoes possuem os seguintes resultados
     %    resultado[1] : posicao x final
     %    resultado[2] : posicao y final
@@ -27,6 +28,12 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
 
     passos = 0;      %quantidade de iteracoes passadas para chegar no resultado
 
+    if (should_plot)
+        hold on;
+        plot([xi xf xf xi xi],[yi yi yf yf yi]);
+        plot_caminhao(x, y, phi, larg_cam, comp_cam);
+    end
+
     %enquanto o erro é alto demais E o caminhao pode manobrar no estacionamento
     while ( (~(eval_err(x, xmeta) < erro & ...
              eval_err(y, ymeta) < erro)) & ...
@@ -36,13 +43,17 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
         output = evalfis([x phi], fis);
 
         %Com o resultado do sistema de inferencia, movemos o caminhao.
-        phi = phi + output;
+        phi = set_phi(phi + output);
         x = x + delta * cosd(phi); %cosd(x) recebe graus.
         y = y + delta * sind(phi); %sind(x) recebe graus.
 
         passos = passos + 1;
-    end
 
+        if (should_plot)
+            plot_caminhao(x, y, phi, larg_cam, comp_cam);
+            pause(0.3);
+        end
+    end
 
     %Calculo dos erros
     err_x   = eval_err(x, xmeta);
