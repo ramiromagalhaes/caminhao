@@ -1,3 +1,6 @@
+%Este é o script principal que produz resultados para o problema mencionado
+%abaixo.
+%
 %Problema de estacionar um caminhao
 %Livro: Neural Networks and Fuzzy Systems - A Dynamical Systems Approach 
 %       to Machine Intelligence cap 9
@@ -97,7 +100,7 @@ for iteracao = 1:max_iteracoes
     x = rnd_position(xi + padding, xf - padding); %não colocaremos o caminhão colado na parede
     y = rnd_position(yi + padding, 50); %não colocaremos o caminhão colado na parede. O '50' vem das restrições do problema original
     phi = rnd_position(phii, phif);
-    resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, [xi, xf, yi, yf], fis, false);
+    resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, [xi, xf, yi, yf], fis);
 
     %escreve resultados no arquivo
     fprintf(fd,'%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\n',...

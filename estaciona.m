@@ -1,11 +1,19 @@
-function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, estacionamento, fis, should_plot, larg_cam, comp_cam)
+function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, estacionamento, fis, varargin)
     %Executa o algoritmo de estacionar o caminhao.
     %----ENTRADAS
-    %    param_caminhao: vetor [x, y, z], onde x e a pos. x, y e a pos. y e z e seu angulo em graus
-    %    delta: "velocidade" do caminhao
-    %    estacionamento: vetor [xi, xf, yi, yf], com as posicoes do estacionamento
+    %    x: posição x inicial do caminhão.
+    %    y: posição y inicial do caminhão.
+    %    phi: ângulo phi inicial do caminhão.
+    %    delta: "velocidade" do caminhao. Quantas unidades lineares ele se desloca por iteração.
+    %    xmeta: o valor ideal de x para onde o caminhão deve se deslocar.
+    %    ymeta: o valor ideal de y para onde o caminhão deve se deslocar.
+    %    phimeta: o valor ideal de phi que o caminhão deve ter final de seu deslocamento.
+    %    estacionamento: vetor [xi, xf, yi, yf], com as dimensões do estacionamento
     %    fis: o descritor do sistema nebuloso
-    %    should_plot: Se true, plota o estacionamento.
+    %    ----ARGUMENTOS OPCIONAIS
+    %        should_plot: Booleano. Se true, plota o estacionamento.
+    %        comp_cam: Comprimento do caminhão usado para plotá-lo. Se ausente, assume-se o valor 8.
+    %        larg_cam: Largura do caminhão usado para plotá-lo. Se ausente, assume-se o valor 18.
     %----SAÍDA: Vetor onde suas posicoes possuem os seguintes resultados
     %    resultado[1] : posicao x final
     %    resultado[2] : posicao y final
@@ -18,11 +26,30 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     %    resultado[9] : erro de estacionamento
     %    resultado[10]: erro de trajetória
 
+    %Valor padrão das variáveis opcionais.
+    should_plot = false;
+    larg_cam = 8;
+    comp_cam = 18;
+
+    %Atribuição das variáveis opcionais que foram declaradas
+    for i = 1:length(varargin)
+        if (i == 1)
+            should_plot = varargin{i};
+        end
+        if (i == 2)
+            larg_cam = varargin{i};
+        end
+        if (i == 3)
+            comp_cam = varargin{i};
+        end
+    end
+
     xi = estacionamento(1);
     xf = estacionamento(2);
     yi = estacionamento(3);
     yf = estacionamento(4);
 
+    %Vamos usar esses valores para o cálculo dos erros.
     x_inicial = x;
     y_inicial = y;
 
@@ -36,7 +63,8 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
 
     %enquanto o erro é alto demais E o caminhao pode manobrar no estacionamento
     while ( (~(eval_err(x, xmeta) < erro & ...
-             eval_err(y, ymeta) < erro)) & ...
+             eval_err(y, ymeta) < erro & ...
+             eval_err(phi, phimeta) < erro)) & ...
              xi < x & x < xf   &   yi < y & y < yf )
 
         %Chama o sistema de inferencia fuzzy, e calcula o novo giro do volante.
@@ -94,6 +122,8 @@ function newphi = set_phi(p)
         newphi = p + 360.0;
     end
 end
+
+
 
 function val = distancia_canto_proximo(x, y, estacionamento)
 %Calcula a distancia do caminhão até o canto mais próximo do
