@@ -62,24 +62,26 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     end
 
     %enquanto o erro é alto demais E o caminhao pode manobrar no estacionamento
-    while ( (~(eval_err(x, xmeta) < erro & ...
-             eval_err(y, ymeta) < erro & ...
-             eval_err(phi, phimeta) < erro)) & ...
-             xi < x & x < xf   &   yi < y & y < yf )
+    while ( xi < x & x < xf   &   yi < y & y < yf )
 
         %Chama o sistema de inferencia fuzzy, e calcula o novo giro do volante.
-        output = evalfis([x phi], fis);
+        output = evalfis([x phi y], fis);
 
         %Com o resultado do sistema de inferencia, movemos o caminhao.
-        phi = set_phi(phi + output);
-        x = x + delta * cosd(phi); %cosd(x) recebe graus.
-        y = y + delta * sind(phi); %sind(x) recebe graus.
+        phi = set_phi(phi + output(1));
+        x = x + output(2) * cosd(phi); %cosd(x) recebe graus.
+        y = y + output(2) * sind(phi); %sind(x) recebe graus.
 
         passos = passos + 1;
 
         if (should_plot)
             plot_caminhao(x, y, phi, larg_cam, comp_cam);
             pause(0.3);
+        end
+
+        %se estamos quase parando, pare.
+        if ( output(2) < 0.5 )
+            break;
         end
     end
 
