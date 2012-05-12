@@ -16,6 +16,21 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
 %   (descritor do arquivo). Se foi fornecido um descritor de arquivo, o
 %   parâmetro de saída é 0. Senão, será uma matriz com os resultados, onde
 %   cada linha 'i' (isto é, resultado(i)) contém a saída da simulação i.
+%   As colunas de resultado serão as seguintes:
+%       resultado(i, 1):  valor inicial de x usado na simulação i
+%       resultado(i, 2):  valor inicial de y usado na simulação i
+%       resultado(i, 3):  valor inicial de phi usado na simulação i
+%       resultado(i, 4):  delta usado ao longo da simulação
+%       resultado(i, 5):  valor final de x na simulação i
+%       resultado(i, 6):  valor final de y na simulação i
+%       resultado(i, 7):  valor final de phi na simulação i
+%       resultado(i, 8):  1 se o caminhao estacionou bem na simulação i; 0 caso contrário.
+%       resultado(i, 9):  quantidade de passos tomada para estacionar na simulação i
+%       resultado(i, 10): o erro de x na simulação i
+%       resultado(i, 11): o erro de y na simulação i
+%       resultado(i, 12): o erro de phi na simulação i
+%       resultado(i, 13): o Erro do Estacionamento na simulação i
+%       resultado(i, 14): o Erro de Trajetória na simulação i
 
     write_to_file = false; %se false, vou retornar a memória
     file = 0; %file descriptor do arquivo de saída
