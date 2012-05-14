@@ -40,7 +40,7 @@ NumMFs=4
 MF1='longe':'trimf',[-40 0 40]
 MF2='meio':'trimf',[20 50 80]
 MF3='perto':'trimf',[70 85 100]
-MF4='muito_perto':'trapmf',[95 98 100 100]
+MF4='muito-perto':'trapmf',[95 98 100 100]
 
 [Output1]
 Name='Angulo v'
