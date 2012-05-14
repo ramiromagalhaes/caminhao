@@ -54,6 +54,7 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     y_inicial = y;
 
     passos = 0;      %quantidade de iteracoes passadas para chegar no resultado
+    distancia = 0;   %quanta distância o caminhão andou até parar
 
     if (should_plot)
         hold on;
@@ -73,6 +74,7 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
         y = y + output(2) * sind(phi); %sind(x) recebe graus.
 
         passos = passos + 1;
+        distancia = distancia + output(2);
 
         if (should_plot)
             plot_caminhao(x, y, phi, larg_cam, comp_cam);
@@ -99,7 +101,7 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     EE = sqrt((phi - phimeta)^2 + (x - xmeta)^2 + (y - ymeta)^2);
 
     %Erro da trajetoria: (distancia percorrida) / (distancia euclideana)
-    ET = (passos * delta) / sqrt((x_inicial - xmeta)^2 + (y_inicial - ymeta)^2);
+    ET = distancia / sqrt((x_inicial - xmeta)^2 + (y_inicial - ymeta)^2);
 
     resultado = [x, y, phi, sucesso, passos, err_x, err_y, err_phi, EE, ET];
 end

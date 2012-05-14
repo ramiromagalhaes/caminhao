@@ -34,10 +34,10 @@ MF6='3-horas':'trimf',[145 180 210]
 MF7='1-hora':'trapmf',[180 225 270 270]
 
 [Input3]
-Name='Posicao_y'
+Name='Posicao y'
 Range=[0 100]
 NumMFs=4
-MF1='longe':'trimf',[-40 0 40]
+MF1='longe':'trimf',[0 0 40]
 MF2='meio':'trimf',[20 50 80]
 MF3='perto':'trimf',[70 85 100]
 MF4='muito-perto':'trapmf',[95 98 100 100]
