@@ -7,12 +7,12 @@ function estatisticas = avalia_resultados( resultado )
 %   função simula_estacionento. A primeira linha conterá a média, a segunda
 %   o desvio padrão e a terceira a variância.
 
-    estatisticas = zeros(3, 14);
+    estatisticas = zeros(3, size(resultado,2));
 
-    for i = 1:length(resultado)
-        estatisticas(1, i) = mean( resultado(:,i) )
-        estatisticas(2, i) = std ( resultado(:,i) )
-        estatisticas(3, i) = var ( resultado(:,i) )
+    for i = 1:size(resultado,2)
+        estatisticas(1, i) = mean( resultado(:,i) );
+        estatisticas(2, i) = std ( resultado(:,i) );
+        estatisticas(3, i) = var ( resultado(:,i) );
     end
 
     %{
