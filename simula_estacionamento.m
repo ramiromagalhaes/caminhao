@@ -50,8 +50,10 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
 
 
 
-    %iniciando contador de progresso
-    progress_bar = waitbar(0, 'Simulando...');
+    %Inicio o contador de progresso se estiver escrevendo em arquivo
+    if (write_to_file)
+        progress_bar = waitbar(0, 'Simulando...');
+    end
     
     %laco principal
     for iteracao = 1:max_iteracoes
@@ -70,12 +72,16 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
             resultado(iteracao,:) = [x y phi delta estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, estacionamento, fis)];
         end
 
-        %atualiza contador de progresso.
-        waitbar(iteracao/max_iteracoes, progress_bar);
+        %atualiza contador de progresso, se estiver escrevendo em arquivo.
+        if (write_to_file)
+            waitbar(iteracao/max_iteracoes, progress_bar);
+        end
     end
 
-    %encerra o contador de progresso
-    close(progress_bar);
+    %encerra o contador de progresso, se estiver escrevendo em arquivo.
+    if (write_to_file)
+        close(progress_bar);
+    end
 
     %caso tenha escrito toda a saida em arquivo, preciso retornar algo
     if (write_to_file)

@@ -1,11 +1,11 @@
 function estatisticas = avalia_resultados( resultado )
-%a partir dos resultados de uma simulação, cria uma matriz com média,
-%desvio padrão e variância dos resultados
-%   ENTRADA: matriz de resultado conforme a produzida pela função
-%   simula_estacionamento
-%   SAIDA: matriz de estatísticas sobre cada parâmetro produzido pela
-%   função simula_estacionento. A primeira linha conterá a média, a segunda
-%   o desvio padrão e a terceira a variância.
+    %a partir dos resultados de uma simulação, cria uma matriz com média,
+    %desvio padrão e variância dos resultados
+    %   ENTRADA: matriz de resultado conforme a produzida pela função
+    %   simula_estacionamento
+    %   SAIDA: matriz de estatísticas sobre cada parâmetro produzido pela
+    %   função simula_estacionento. A primeira linha conterá a média, a segunda
+    %   o desvio padrão e a terceira a variância.
 
     estatisticas = zeros(3, size(resultado,2));
 
