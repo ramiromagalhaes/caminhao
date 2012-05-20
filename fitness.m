@@ -50,7 +50,6 @@ function f = fitness( gene )
     %caminhao pode ser colocado aleatoriamente.
     padding = ceil(delta*(cosd(30) + cosd(60)));
 
-
     fis = readfis('caminhao.fis');
     fis = create_caminhao_fis(fis, gene);
 
@@ -59,6 +58,6 @@ function f = fitness( gene )
     );
 
     %nesse caso o fitness é o percentual de vezes que o caminhão estacionou
-    f = avaliacao(1, 8);
+    f = 1 - avaliacao(1, 8);
 end
 
