@@ -1,4 +1,4 @@
-function f = fitness( fis )
+function f = fitness( gene )
 
     %==========================================================================
     %Universos de discurso
@@ -44,13 +44,15 @@ function f = fitness( fis )
     passos = 0;
 
     %quantidade de experimentos que faremos
-    max_iteracoes = 1000;
+    max_iteracoes = 100;
 
     %distancia contada a partir das paredes do estacionamento nas quais o
     %caminhao pode ser colocado aleatoriamente.
     padding = ceil(delta*(cosd(30) + cosd(60)));
 
 
+    fis = readfis('caminhao.fis');
+    fis = create_caminhao_fis(fis, gene);
 
     avaliacao = avalia_resultados ( ...
         simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, max_iteracoes, estacionamento, padding, universo_phi, fis) ...
