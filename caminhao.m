@@ -98,7 +98,6 @@ simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, max_iteracoes, estacio
 fclose(fd);
 
 tempo_final = clock();
-duracao = tempo_final - tempo_inicial;
 fprintf('Simulação concluida em %s.\n', datestr(tempo_final));
 
 %Linux only. Para facilitar a leitura do arquivo pelo BROffice. Isso
