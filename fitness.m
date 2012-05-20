@@ -44,7 +44,7 @@ function f = fitness( fis )
     passos = 0;
 
     %quantidade de experimentos que faremos
-    max_iteracoes = 10;
+    max_iteracoes = 1000;
 
     %distancia contada a partir das paredes do estacionamento nas quais o
     %caminhao pode ser colocado aleatoriamente.
