@@ -44,7 +44,7 @@ phimeta =  90; %angulo de estacionamento ideal
 erro = 0.04;
 
 %Quantidade de passos que o caminhao anda por iteracao. E a velocidade.
-delta = 1;
+delta = 5;
 
 %==========================================================================
 %Variaveis de interesse.
