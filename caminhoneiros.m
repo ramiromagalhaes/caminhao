@@ -14,6 +14,9 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     %options = gaoptimset(options,'SelectionFcn', @selectionroulette);
     %options = gaoptimset(options,'CrossoverFcn', @crossoverarithmetic);
 
+    % Quem pode, usa processamento paralelo...
+    options = gaoptimset(options,'UseParallel', 'always');
+
     % O que essa faz?
     options = gaoptimset(options,'FitnessScalingFcn', @fitscalingprop);
 
@@ -53,4 +56,8 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % iteração.
     [x,fval,exitflag,output,population,score] = ...
         ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
+
+    disp(x)
+    disp(fval)
 end
+
