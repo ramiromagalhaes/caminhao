@@ -14,7 +14,7 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     %        should_plot: Booleano. Se true, plota o estacionamento.
     %        comp_cam: Comprimento do caminhão usado para plotá-lo. Se ausente, assume-se o valor 8.
     %        larg_cam: Largura do caminhão usado para plotá-lo. Se ausente, assume-se o valor 18.
-    %----SAÍDA: Vetor onde suas posicoes possuem os seguintes resultados
+    %----SA�?DA: Vetor onde suas posicoes possuem os seguintes resultados
     %    resultado[1] : posicao x final
     %    resultado[2] : posicao y final
     %    resultado[3] : angulo final
@@ -23,9 +23,7 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
     %    resultado[6] : erro de x
     %    resultado[7] : erro de y
     %    resultado[8] : erro do angulo
-    %    resultado[9] : erro de estacionamento
-    %    resultado[10]: erro de trajetória
-
+   
     %Valor padrão das variáveis opcionais.
     should_plot = false;
     larg_cam = 8;
@@ -93,13 +91,9 @@ function resultado = estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, es
               err_y < erro & ...
               err_phi < erro;
 
-    %Erro de estacionamento
-    EE = sqrt((phi - phimeta)^2 + (x - xmeta)^2 + (y - ymeta)^2);
+   
 
-    %Erro da trajetoria: (distancia percorrida) / (distancia euclideana)
-    ET = (passos * delta) / sqrt((x_inicial - xmeta)^2 + (y_inicial - ymeta)^2);
-
-    resultado = [x, y, phi, sucesso, passos, err_x, err_y, err_phi, EE, ET];
+    resultado = [x, y, phi, sucesso, passos, err_x, err_y, err_phi];
 end
 
 
