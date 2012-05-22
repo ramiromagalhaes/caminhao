@@ -1,18 +1,56 @@
 function [x,fval,exitflag,output,population,score] = caminhoneiros()
-%% This is an auto generated MATLAB file from Optimization Tool.
+    % Otimização através de AG das regras de controle do caminhão.
 
-%% Start with the default options
-options = gaoptimset;
-%% Modify options setting
-%options = gaoptimset(options,'CrossoverFraction', CrossoverFraction_Data);
-options = gaoptimset(options,'FitnessScalingFcn', @fitscalingprop);
-%options = gaoptimset(options,'SelectionFcn', @selectionroulette);
-%options = gaoptimset(options,'CrossoverFcn', @crossoverarithmetic);
-options = gaoptimset(options,'Display', 'iter');
-options = gaoptimset(options,'PlotFcns', {  @gaplotbestf @gaplotrange });
+    % =====================================================================
+    % Configuração para o algoritmo genético.
+    % =====================================================================
 
-lb = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]; %limites inferiores para cada variável que busco
-ub = [7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7]; %limites superiores para cada variável que busco
+    % Opções padrão para o algoritmo genético
+    options = gaoptimset;
 
-[x,fval,exitflag,output,population,score] = ...
-ga(@fitness,18,[],[],[],[],lb,ub,[],[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18],options);
+
+    % O que essas fazem?
+    %options = gaoptimset(options,'CrossoverFraction', CrossoverFraction_Data);
+    %options = gaoptimset(options,'SelectionFcn', @selectionroulette);
+    %options = gaoptimset(options,'CrossoverFcn', @crossoverarithmetic);
+
+    % O que essa faz?
+    options = gaoptimset(options,'FitnessScalingFcn', @fitscalingprop);
+
+    % O que essa faz?
+    options = gaoptimset(options,'Display', 'iter');
+
+    % Gráficos a plotar ao longo da simulação. @gaplotbestf plota um
+    % gráfico com o melhor fitness e o fitness médio por geração.
+    % @gaplotrange faz o mesmo, mas apresenta também o pior fitness.
+    options = gaoptimset(options,'PlotFcns', {  @gaplotbestf @gaplotrange });
+
+    % =====================================================================
+    % Parâmetros adicionais
+    % =====================================================================
+
+    % quantide de incógnitas do problema.
+    qtd_incognitas = 18;
+
+    % Limites para cada variável que busco. Como há 7 formas de virar o
+    % volante, representadas pelos números 1 a 7, eu estabeleço estes
+    % números como limites inferiores e superiores do meu espaço de busca
+    % da resposta ótima.
+    lb = ones(1, qtd_incognitas); % Limites inferiores
+    ub = 7 * lb; % Limites superiores
+
+    % Quais são as variáveis que busco cujos valores são inteiros? No caso,
+    % são todas.
+    integers = 1:qtd_incognitas;
+
+    % =====================================================================
+    % Execução do algoritmo genético
+    % =====================================================================
+
+    % A função 'fitness' referenciada na chamada abaixo deve receber um
+    % vetor de doubles de qtd_incognitas posições. É essa função que será
+    % usada para calcular o fitness de cada indivíduo da população, em cada
+    % iteração.
+    [x,fval,exitflag,output,population,score] = ...
+        ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
+end
