@@ -2,29 +2,40 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % Otimização através de AG das regras de controle do caminhão.
 
     % =====================================================================
-    % Configuração para o algoritmo genético.
+    % Configuração para o algoritmo genético. Para mais detalhes, consulte
+    % 'help gaoptimset'.
     % =====================================================================
 
     % Opções padrão para o algoritmo genético
     options = gaoptimset;
 
-    % Fitness Scaling Function: Proportinal. Torna a expectativa de seleção
-    % de um indivíduo proporcional ao seu fitness.
-    options = gaoptimset(options,'FitnessScalingFcn', @fitscalingprop);
-
-    % Selection Function: roulette. Método de seleção da roleta.
-    options = gaoptimset(options,'SelectionFcn', @selectionroulette);
-
-    % Elitismo: 2 melhores permanecem.
-    % Reprodução: 80% da população (16) será gerada a partir de crossover.
+    % =====================================================================
+    % As opções a seguir são ignoradas pois ao menos uma das variáveis a
+    % otimizar é inteira.
+    % =====================================================================
 
     % Mutação: elementos do vetor são selecionados aleatoriamente e a eles
     % são atribuídos valores aleatórios que respeitem a restrição do
     % problema. Taxa de mutação padrão: 1%.
-    options = gaoptimset(options,'MutationFcn', @mutationuniform);
+    % options = gaoptimset(options,'MutationFcn', @mutationuniform);
 
     % Crossover: Scattered. Cria aleatoriamente um vetor como máscara e
     % combina os genes de acordo com a máscara.
+    % options = gaoptimset(options,'CrossoverFcn', @crossoverscattered);
+
+    % Selection Function: roulette. Método de seleção da roleta.
+    % options = gaoptimset(options,'SelectionFcn', @selectionroulette);
+
+    % =====================================================================
+    % As funções abaixo não são ignoradas.
+    % =====================================================================
+
+    % Fitness Scaling Function: Proportinal. Torna a expectativa de seleção
+    % de um indivíduo proporcional ao seu fitness.
+    options = gaoptimset(options,'FitnessScalingFcn', @fitscalingprop);
+
+    % Elitismo: 2 melhores permanecem.
+    % Reprodução: 80% da população (16) será gerada a partir de crossover.
 
     % Migração: 20% (4) dos melhores indivíduos de n-ésima geração são
     % copiados para a (n+1)-ésima geração. Isso ocorre de 20 em 20
