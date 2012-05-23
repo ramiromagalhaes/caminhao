@@ -1,4 +1,4 @@
-function [state, options,optchanged] = funcaoOutput(options,state,flag)
+function [state, options,optchanged,vetBest] = funcaoOutput(options,state,flag,fd)
 % Função para tratar as saidas do algoritmo genético
 %   [STATE, OPTIONS, OPTCHANGED] = GAOUTPUTFCNTEMPLATE(OPTIONS,STATE,FLAG)
 %   where OPTIONS is an options structure used by GA. 
@@ -30,7 +30,7 @@ function [state, options,optchanged] = funcaoOutput(options,state,flag)
 %   OPTCHANGED: Boolean indicating if the options have changed.
 %
 
-optchanged = false;
+optchanged = true;
 
 
 %Opções da variavel state
@@ -47,24 +47,27 @@ optchanged = false;
 % NonlinIneq — Nonlinear inequality constraints, displayed only when a nonlinear constraint function is specified
 % NonlinEq — Nonlinear equality constraints, displayed only when a nonlinear constraint function is specified
 
+
+
 switch flag
     % Plot initialization
     case 'init'
-         disp('Starting the algorithm');       
-       
+         disp('Iniciando execução');   
+           
     case 'iter'
-        disp('Imprimindo o best fitness da geração atual');
-        disp(state.Best(state.Generation));
+        %disp('Imprimindo o best fitness da geração atual');
+        %best = state.Best(state.Generation);
+        %disp(best);
         
         %buscando o individuo de menor fitness
-        best = state.Best(state.Generation);
-        posicao = find(state.Score==best);        
-        disp('Imprimindo a linha que gerou o best fitness');
-        disp(state.Population(posicao,:));
-        
+        %posicao = find(state.Score==best);        
+        %disp('Imprimindo a linha que gerou o best fitness');
+        %disp(state.Population(posicao,:));
+                
     case 'done'
-        disp('Imprimindo os best fitness de cada geração');
-        disp(state.Best);
+        disp('Imprimindo o melhor fitness de todas as iterações');
+        disp(min(state.Best));
+       
         
 end
 

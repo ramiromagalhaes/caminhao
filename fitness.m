@@ -50,6 +50,8 @@ function f = fitness( gene )
     %caminhao pode ser colocado aleatoriamente.
     padding = ceil(delta*(cosd(30) + cosd(60)));
 
+   
+    
     fis = readfis('caminhao.fis');
     fis = create_caminhao_fis(fis, gene);
 

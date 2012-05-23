@@ -1,4 +1,4 @@
-function [x,fval,exitflag,output,population,score] = caminhoneiros()
+function [x,fval,exitflag,output,population,score] = caminhoneirosTeste()
     % OtimizaÃ§Ã£o atravÃ©s de AG das regras de controle do caminhÃ£o.
 
     % =====================================================================
@@ -60,7 +60,7 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     options = gaoptimset(options,'PopulationSize',20);
      
     %definindo o máximo de gerações
-    options = gaoptimset(options,'Generations',100);
+    options = gaoptimset(options,'Generations',50);
     
             
     % FunÃ§Ã£o chamada a cada iteraÃ§Ã£o com informaÃ§Ãµes sobre o andamento da
@@ -101,17 +101,22 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % usada para calcular o fitness de cada indivÃ­duo da populaÃ§Ã£o, em cada
     % iteraÃ§Ã£o.
     % variável final_pop salva a ultima população para reutilização numa próxima simulação
-          
-    [x, fval, reason, output, final_pop] =  ...
+        
+    % testa o fração de crossover
+       record=[];
+       for n=0:.05:1
+        options = gaoptimset(options,'CrossoverFraction', n);
+        [x, fval, reason, output, final_pop] =  ...
          ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
-     
-     %executando com a população anterior (comentado caso ache necesário
-     %usar)
-     %disp('nova execução com população anterior');
-     %options = gaoptimset(options,'InitialPop', final_pop);
-     %[x, fval, reason, output, final_pop2] = ....
-      %  ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
-   
+        record = [record; fval];
+       end
+       
+       clf;
+       plot(0:.05:1, record,'*-')
+       xlabel('Fração de Crossover');
+       ylabel('Fitness')
+ 
+        
      
    
 end
