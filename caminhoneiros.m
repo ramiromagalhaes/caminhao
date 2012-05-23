@@ -8,31 +8,55 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % Opções padrão para o algoritmo genético
     options = gaoptimset;
 
-
-    % O que essas fazem?
-    %options = gaoptimset(options,'CrossoverFraction', CrossoverFraction_Data);
-    %options = gaoptimset(options,'SelectionFcn', @selectionroulette);
-    %options = gaoptimset(options,'CrossoverFcn', @crossoverarithmetic);
-
-    % Quem pode, usa processamento paralelo...
-    options = gaoptimset(options,'UseParallel', 'always');
-
-    % O que essa faz?
+    % Fitness Scaling Function: Proportinal. Torna a expectativa de seleção
+    % de um indivíduo proporcional ao seu fitness.
     options = gaoptimset(options,'FitnessScalingFcn', @fitscalingprop);
 
-    % O que essa faz?
-    options = gaoptimset(options,'Display', 'iter');
+    % Selection Function: roulette. Método de seleção da roleta.
+    options = gaoptimset(options,'SelectionFcn', @selectionroulette);
+
+    % Elitismo: 2 melhores permanecem.
+    % Reprodução: 80% da população (16) será gerada a partir de crossover.
+
+    % Mutação: elementos do vetor são selecionados aleatoriamente e a eles
+    % são atribuídos valores aleatórios que respeitem a restrição do
+    % problema. Taxa de mutação padrão: 1%.
+    options = gaoptimset(options,'MutationFcn', @mutationuniform);
+
+    % Crossover: Scattered. Cria aleatoriamente um vetor como máscara e
+    % combina os genes de acordo com a máscara.
+
+    % Migração: 20% (4) dos melhores indivíduos de n-ésima geração são
+    % copiados para a (n+1)-ésima geração. Isso ocorre de 20 em 20
+    % gerações.
+
+    % Parâmetros das restrições: ???
+
+    % Hybrid function: nenhuma, ou seja, nada a otimizar depois dessa
+    % otimização.
+
+    % Critério de parada: todas padronizadas.
 
     % Gráficos a plotar ao longo da simulação. @gaplotbestf plota um
     % gráfico com o melhor fitness e o fitness médio por geração.
     % @gaplotrange faz o mesmo, mas apresenta também o pior fitness.
     options = gaoptimset(options,'PlotFcns', {  @gaplotbestf @gaplotrange });
 
+    % Função chamada a cada iteração com informações sobre o andamento da
+    % otimização.
+    % options = gaoptimset(options,'OutputFcns', @???);
+
+    % Exibe informações no console do MATLAB, no caso, a cada iteração.
+    options = gaoptimset(options,'Display', 'iter');
+
+    % Quem pode, usa processamento paralelo...
+    options = gaoptimset(options,'UseParallel', 'always');
+
     % =====================================================================
     % Parâmetros adicionais
     % =====================================================================
 
-    % quantide de incógnitas do problema.
+    % Quantide de incógnitas do problema.
     qtd_incognitas = 18;
 
     % Limites para cada variável que busco. Como há 7 formas de virar o
@@ -56,8 +80,4 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % iteração.
     [x,fval,exitflag,output,population,score] = ...
         ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
-
-    disp(x)
-    disp(fval)
 end
-
