@@ -52,10 +52,11 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % gráfico com o melhor fitness e o fitness médio por geração.
     % @gaplotrange faz o mesmo, mas apresenta também o pior fitness.
     options = gaoptimset(options,'PlotFcns', {  @gaplotbestf @gaplotrange });
+  
 
     % Função chamada a cada iteração com informações sobre o andamento da
     % otimização.
-    % options = gaoptimset(options,'OutputFcns', @???);
+    options = gaoptimset(options,'OutputFcn',{@funcaoOutput});
 
     % Exibe informações no console do MATLAB, no caso, a cada iteração.
     options = gaoptimset(options,'Display', 'iter');
@@ -92,3 +93,9 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     [x,fval,exitflag,output,population,score] = ...
         ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
 end
+
+
+
+
+
+
