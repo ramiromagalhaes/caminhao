@@ -36,7 +36,7 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
 
     % Elitismo: 2 melhores permanecem.
     options = gaoptimset(options,'EliteCount',2);
-    
+
     % Reprodução: 80% da população (16) será gerada a partir de crossover.
 
     % Migração: 20% (4) dos melhores indivíduos de n-ésima geração são
@@ -54,15 +54,14 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % gráfico com o melhor fitness e o fitness médio por geração.
     % @gaplotrange faz o mesmo, mas apresenta também o pior fitness.
     options = gaoptimset(options,'PlotFcns', {  @gaplotbestf @gaplotrange });
-  
+
     % definindo uma popula��o de 20 indiv�duos, pois a execu��o com 100
     % estava muito longa
     options = gaoptimset(options,'PopulationSize',20);
-     
+
     %definindo o m�ximo de gera��es
     options = gaoptimset(options,'Generations',100);
-    
-            
+
     % Função chamada a cada iteração com informações sobre o andamento da
     % otimização.
     options = gaoptimset(options,'OutputFcn',{@funcaoOutput});
@@ -91,11 +90,11 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % são todas.
     integers = 1:qtd_incognitas;
 
-   
+
     % =====================================================================
     % Execução do algoritmo genético
     % =====================================================================
-     
+
     % A função 'fitness' referenciada na chamada abaixo deve receber um
     % vetor de doubles de qtd_incognitas posições. É essa função que será
     % usada para calcular o fitness de cada indivíduo da população, em cada
@@ -104,7 +103,7 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
 
     [x,fval,exitflag,output,population,score] =  ...
          ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
-     
+
     %executando com a popula��o anterior (comentado caso ache neces�rio
     %usar)
     %disp('nova execu��o com popula��o anterior');
