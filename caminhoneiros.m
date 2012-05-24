@@ -55,11 +55,11 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % @gaplotrange faz o mesmo, mas apresenta tambÃ©m o pior fitness.
     options = gaoptimset(options,'PlotFcns', {  @gaplotbestf @gaplotrange });
   
-    % definindo uma população de 20 indivíduos, pois a execução com 100
+    % definindo uma populaï¿½ï¿½o de 20 indivï¿½duos, pois a execuï¿½ï¿½o com 100
     % estava muito longa
     options = gaoptimset(options,'PopulationSize',20);
      
-    %definindo o máximo de gerações
+    %definindo o mï¿½ximo de geraï¿½ï¿½es
     options = gaoptimset(options,'Generations',100);
     
             
@@ -67,8 +67,8 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % otimizaÃ§Ã£o.
     options = gaoptimset(options,'OutputFcn',{@funcaoOutput});
 
-    % Exibe informaÃ§Ãµes no console do MATLAB, no caso, a cada iteraÃ§Ã£o.
-    options = gaoptimset(options,'Display', 'iter');
+    % Desliga a exibiÃ§Ã£o de informaÃ§Ãµes ao longo da execuÃ§Ã£o da otimizaÃ§Ã£o.
+    options = gaoptimset(options,'Display', 'none');
 
     % Quem pode, usa processamento paralelo...
     options = gaoptimset(options,'UseParallel', 'always');
@@ -100,24 +100,16 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % vetor de doubles de qtd_incognitas posiÃ§Ãµes. Ã‰ essa funÃ§Ã£o que serÃ¡
     % usada para calcular o fitness de cada indivÃ­duo da populaÃ§Ã£o, em cada
     % iteraÃ§Ã£o.
-    % variável final_pop salva a ultima população para reutilização numa próxima simulação
-          
-    [x, fval, reason, output, final_pop] =  ...
+    % variï¿½vel final_pop salva a ultima populaï¿½ï¿½o para reutilizaï¿½ï¿½o numa prï¿½xima simulaï¿½ï¿½o
+
+    [x,fval,exitflag,output,population,score] =  ...
          ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
      
-     %executando com a população anterior (comentado caso ache necesário
-     %usar)
-     %disp('nova execução com população anterior');
-     %options = gaoptimset(options,'InitialPop', final_pop);
-     %[x, fval, reason, output, final_pop2] = ....
-      %  ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
-   
-     
-   
+    %executando com a populaï¿½ï¿½o anterior (comentado caso ache necesï¿½rio
+    %usar)
+    %disp('nova execuï¿½ï¿½o com populaï¿½ï¿½o anterior');
+    %options = gaoptimset(options,'InitialPop', final_pop);
+    %[x, fval, reason, output, final_pop2] = ....
+    %  ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
+
 end
-
-
-
-
-
-
