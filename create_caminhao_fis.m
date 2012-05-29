@@ -1,14 +1,13 @@
-function fis = create_caminhao_fis(basefis, p)
+function fis = create_caminhao_fis(p)
 %Cria um FIS com base em outro FIS, mas monta a matriz de regras de acordo
 %com os parâmetros fornecidos.
 %   Parâmetros de ENTRADA
-%       basefis: FIS base.
 %       p: vetor com as respostas do volante para as 14 formas com que o
-%       caminhão pode estar na ESQUERDA do estacionamento. Os 4 últimos
+%       caminhão pode estar na ESQUERDA do estacionamento. Os 3 últimos
 %       parâmetros, contudo, se referem às respostas do volante para as 
-%       3 formas com que o caminhão pode estar à esquerda do centro, mais
-%       um parâmetro adicional para quando ele estiver precisamente no
-%       centro.
+%       3 formas com que o caminhão pode estar à esquerda do centro.
+
+    basefis = readfis('caminhao.fis');
 
     fis = newfis(...
         'caminhao', 'mamdani', 'min', 'max', 'min', 'max', 'centroid');
@@ -41,5 +40,4 @@ function fis = create_caminhao_fis(basefis, p)
 
     %caminhão está no centro e alinhado com a direção para o estacionamento
     fis = addrule(fis, [centro 4 4 1 1] );
-
 end

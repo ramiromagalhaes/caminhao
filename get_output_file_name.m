@@ -7,4 +7,3 @@ function name = get_output_file_name(the_time, rand_seed)
                 num2str(the_time(5)) '-' num2str(the_time(6)) '-' ...
                 num2str(rand_seed) '.csv'];
 end
-

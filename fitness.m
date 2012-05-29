@@ -50,10 +50,9 @@ function f = fitness( gene )
     %caminhao pode ser colocado aleatoriamente.
     padding = ceil(delta*(cosd(30) + cosd(60)));
 
-   
-    
-    fis = readfis('caminhao.fis');
-    fis = create_caminhao_fis(fis, gene);
+
+
+    fis = create_caminhao_fis(gene);
 
     avaliacao = avalia_resultados ( ...
         simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, max_iteracoes, estacionamento, padding, universo_phi, fis) ...
