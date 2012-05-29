@@ -1,4 +1,4 @@
-function savefis( gene, arquivo )
+function savefis( gene )
     %Salva em arquivo um FIS gerado a partir do vetor de 17 posicoes 'gene'.
     fis = create_caminhao_fis(gene);
     writefis(fis, get_fis_file_name(clock()));

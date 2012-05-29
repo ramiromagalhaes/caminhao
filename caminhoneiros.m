@@ -58,6 +58,9 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % definindo uma populacao de 20 individuos.
     options = gaoptimset(options,'PopulationSize',20);
 
+    % colocando a solução que encontramos manualmente na população inicial
+    options = gaoptimset(options,'InitialPopulation', [7 3 1 6 1 7 7 7 7 3 1 1 5 1 7 6 6]);
+
     %definindo o maximo de geracoes
     options = gaoptimset(options,'Generations',100);
 
@@ -100,5 +103,6 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
 
     [x,fval,exitflag,output,population,score] =  ...
          ga(@fitness,qtd_incognitas,[],[],[],[],lb,ub,[],integers,options);
-end
 
+     savefis(x);
+end

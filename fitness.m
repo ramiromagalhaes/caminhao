@@ -61,4 +61,3 @@ function f = fitness( gene )
     %nesse caso o fitness é o percentual de vezes que o caminhão estacionou
     f = 1 - avaliacao(1, 8);
 end
-

@@ -103,4 +103,3 @@ fprintf('Simulação concluida em %s.\n', datestr(tempo_final));
 %Linux only. Para facilitar a leitura do arquivo pelo BROffice. Isso
 %substitui pontos por vírgulas no arquivo de saída.
 system(['sed -i ''s/\./\,/g'' ' file_name]);
-

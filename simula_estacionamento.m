@@ -12,7 +12,7 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
 %    ----ARGUMENTOS OPCIONAIS
 %        file: descritor do arquivo aberto para escrita de texto para onde os resultados serão gravados.
 %
-%   SA�?DA: A saída muda de acordo com o uso do parâmetro opcional
+%   SAIDA: A saída muda de acordo com o uso do parâmetro opcional
 %   (descritor do arquivo). Se foi fornecido um descritor de arquivo, o
 %   parâmetro de saída é 0. Senão, será uma matriz com os resultados, onde
 %   cada linha 'i' (isto é, resultado(i)) contém a saída da simulação i.
@@ -29,7 +29,8 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
 %       resultado(i, 10): o erro de x na simulação i
 %       resultado(i, 11): o erro de y na simulação i
 %       resultado(i, 12): o erro de phi na simulação i
-
+%       resultado(i, 13): o Erro do Estacionamento na simulação i
+%       resultado(i, 14): o Erro de Trajetória na simulação i
 
     write_to_file = false; %se false, vou retornar a memória
     file = 0; %file descriptor do arquivo de saída
@@ -43,8 +44,8 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
 
     %se não vamos escrever em arquivo, o resultado retorna em uma matriz
     if (~write_to_file)
-        %número mágico 12 é a quantidade de valores que retornamos
-        resultado = zeros(max_iteracoes, 12);
+        %número mágico 14 é a quantidade de valores que retornamos
+        resultado = zeros(max_iteracoes, 14);
     end
 
 
@@ -53,7 +54,7 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
     if (write_to_file)
         progress_bar = waitbar(0, 'Simulando...');
     end
-    
+
     %laco principal
     for iteracao = 1:max_iteracoes
         x = rnd_position(estacionamento(1) + padding, estacionamento(2) - padding); %não colocaremos o caminhão colado na parede
@@ -66,7 +67,7 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
             %escreve resultados no arquivo
             fprintf(file,'%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\n',...
                     x, y, phi, delta, resultado(1),resultado(2),resultado(3),resultado(4),resultado(5),...
-                                      resultado(6),resultado(7),resultado(8));
+                                      resultado(6),resultado(7),resultado(8),resultado(9),resultado(10));
         else
             resultado(iteracao,:) = [x y phi delta estaciona(x, y, phi, delta, xmeta, ymeta, phimeta, erro, estacionamento, fis)];
         end
@@ -77,16 +78,13 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
         end
     end
 
-    %encerra o contador de progresso, se estiver escrevendo em arquivo.
     if (write_to_file)
+        %encerra o contador de progresso, se estiver escrevendo em arquivo
         close(progress_bar);
-    end
-
-    %caso tenha escrito toda a saida em arquivo, preciso retornar algo
-    if (write_to_file)
+        %caso tenha escrito toda a saida em arquivo, preciso retornar algo
         resultado = 0;
     end
-    
+
 end
 
 
