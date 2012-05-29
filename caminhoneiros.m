@@ -76,7 +76,7 @@ function [x,fval,exitflag,output,population,score] = caminhoneiros()
     % =====================================================================
 
     % Quantide de incógnitas do problema.
-    qtd_incognitas = 18;
+    qtd_incognitas = 17;
 
     % Limites para cada variável que busco. Como há 7 formas de virar o
     % volante, representadas pelos números 1 a 7, eu estabeleço estes

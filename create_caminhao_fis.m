@@ -39,6 +39,7 @@ function fis = create_caminhao_fis(basefis, p)
         rule_number = rule_number + 1;
     end
 
-    fis = addrule(fis, [centro ceil(qtd_mf_input_2 / 2) p(rule_number) 1 1] );
+    %caminhão está no centro e alinhado com a direção para o estacionamento
+    fis = addrule(fis, [centro 4 4 1 1] );
 
 end
