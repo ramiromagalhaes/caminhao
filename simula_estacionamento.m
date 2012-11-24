@@ -6,6 +6,7 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
 %    xmeta: o valor ideal de x para onde o caminhão deve se deslocar.
 %    ymeta: o valor ideal de y para onde o caminhão deve se deslocar.
 %    phimeta: o valor ideal de phi que o caminhão deve ter final de seu deslocamento.
+%    erro: o erro tolerado para o estacionamento.
 %    estacionamento: vetor [xi, xf, yi, yf], com as dimensões do estacionamento
 %    estacionamento: vetor [phii, phif], com os limites de phi
 %    fis: o descritor do sistema nebuloso
