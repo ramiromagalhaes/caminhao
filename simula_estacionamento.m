@@ -38,7 +38,7 @@ function resultado = simula_estacionamento(delta, xmeta, ymeta, phimeta, erro, m
 
     %se recebemos um descritor de arquivo como parâmetro da função, vamos
     %escrever nesse arquivo.
-    if (length(varargin) > 0)
+    if (~isempty(varargin))
         file = varargin{1};
         write_to_file = true;
     end
